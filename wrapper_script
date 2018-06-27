@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+#
+# Exit Status:
+# 0 = OK
+# 1 = Exec call failed
+# 3 = Missing Core binary
+
+# Setup the location of my binary application
+invoked_command=$0
+filename=`basename ${invoked_command}`
+BINARY_PATH="$HOME/bin/non-scripts/${filename}"
+
+
+if [ -x ${BINARY_PATH} ]; then
+  exec ${BINARY_PATH} $*
+  echo "ERROR Executing: ${BINARY_PATH}"
+  exit 1
+else
+  echo "ERROR: Unable to invoke core binary for ${filename} -> ${BINARY_PATH}"
+  exit 2
+fi
